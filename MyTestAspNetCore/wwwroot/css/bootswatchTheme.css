@@ -13,6 +13,7 @@
  */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
+
 :root {
     --bs-blue: #2a9fd6;
     --bs-indigo: #6610f2;
@@ -79,7 +80,19 @@
     }
 }
 
+.erb-image-wrapper img {
+    max-width: 100% !important;
+    height: auto;
+    display: block;
+}
+
 body {
+    background-image: url(/img/bg.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
     margin: 0;
     font-family: var(--bs-body-font-family);
     font-size: var(--bs-body-font-size);
