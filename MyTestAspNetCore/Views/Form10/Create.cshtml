@@ -1,0 +1,109 @@
+﻿@model OrganizationM
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Добавить организацию</h2>
+            <hr />
+        </div>
+        <div asp-validation-summary="All"/>
+        <div class="mb-3">
+            <label asp-for="OrganYprav"></label>
+            <input asp-for="OrganYprav" class="form-control" />
+            <span asp-validation-for="OrganYprav" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="RegNumber"></label>
+            <input asp-for="RegNumber" class="form-control" />
+            <span asp-validation-for="RegNumber" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="SubjectRF"></label>
+            <input asp-for="SubjectRF" class="form-control" />
+            <span asp-validation-for="SubjectRF" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="YrName"></label>
+            <input asp-for="YrName" class="form-control" />
+            <span asp-validation-for="YrName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ShortYrName"></label>
+            <input asp-for="ShortYrName" class="form-control" />
+            <span asp-validation-for="ShortYrName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="AdrYr"></label>
+            <input asp-for="AdrYr" class="form-control" />
+            <span asp-validation-for="AdrYr" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="FIO"></label>
+            <input asp-for="FIO" class="form-control" />
+            <span asp-validation-for="FIO" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="PhoneNumber"></label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="FaksOrg"></label>
+            <input asp-for="FaksOrg" class="form-control" />
+            <span asp-validation-for="FaksOrg" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="MailOrg"></label>
+            <input asp-for="MailOrg" class="form-control" />
+            <span asp-validation-for="MailOrg" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="OKPO"></label>
+            <input asp-for="OKPO" class="form-control" />
+            <span asp-validation-for="OKPO" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="OKVED"></label>
+            <input asp-for="OKVED" class="form-control" />
+            <span asp-validation-for="OKVED" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="OKOGY"></label>
+            <input asp-for="OKOGY" class="form-control" />
+            <span asp-validation-for="OKOGY" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="OKTMO"></label>
+            <input asp-for="OKTMO" class="form-control" />
+            <span asp-validation-for="OKTMO" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="INN"></label>
+            <input asp-for="INN" class="form-control" />
+            <span asp-validation-for="INN" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="KPP"></label>
+            <input asp-for="KPP" class="form-control" />
+            <span asp-validation-for="KPP" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="OKOPF"></label>
+            <input asp-for="OKOPF" class="form-control" />
+            <span asp-validation-for="OKOPF" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="OKFS"></label>
+            <input asp-for="OKFS" class="form-control" />
+            <span asp-validation-for="OKFS" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+        <a asp-controller="Form10" asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Вернуться к списку
+        </a>
+    </div>
+</form>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"/>
+    }
+}

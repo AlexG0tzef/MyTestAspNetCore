@@ -10,5 +10,6 @@ namespace MyTestAspNetCore.Data
         }
 
         public DbSet<CategoryM> Categories { get; set; }
+        public DbSet<OrganizationM> Organizations { get; set; }
     }
 }
