@@ -33,10 +33,104 @@ namespace MyTestAspNetCore.Controllers
             {
                 contextDb.Organizations.Add(obj);
                 contextDb.SaveChanges();
-                TempData["success"] = "Category created successfully";
+                TempData["success"] = "Организация успешно добавлена!";
                 return RedirectToAction("Index");
             }
             return View(obj);
+        }
+        #endregion
+
+        #region Edit
+        //GET METHOD
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var categoryFromDb = contextDb.Organizations.Find(id);
+                if (categoryFromDb == null) NotFound();
+                return View(categoryFromDb);
+            }
+        }
+        //POST METHOD
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(OrganizationM obj)
+        {
+            if (ModelState.IsValid)
+            {
+                contextDb.Organizations.Update(obj);
+                contextDb.SaveChanges();
+                TempData["success"] = "Организация обновлена!";
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+        }
+        #endregion
+
+        #region ViewForms
+        //GET METHOD
+        public IActionResult ViewForms(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var categoryFromDb = contextDb.Organizations.Find(id);
+                if (categoryFromDb == null) NotFound();
+                return View(categoryFromDb);
+            }
+        }
+        //POST METHOD
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ViewForms(OrganizationM obj)
+        {
+            if (ModelState.IsValid)
+            {
+                contextDb.Organizations.Update(obj);
+                contextDb.SaveChanges();
+                TempData["success"] = "Организация обновлена!";
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+        }
+        #endregion
+
+        #region Delete
+        //GET METHOD
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var categoryFromDb = contextDb.Organizations.Find(id);
+                if (categoryFromDb == null) NotFound();
+                return View(categoryFromDb);
+            }
+        }
+        //POST METHOD
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePost(int? id)
+        {
+            var obj = contextDb.Organizations.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            contextDb.Organizations.Remove(obj);
+            contextDb.SaveChanges();
+            TempData["success"] = "Организация успешно удалена!";
+            return RedirectToAction("Index");
         }
         #endregion
     }

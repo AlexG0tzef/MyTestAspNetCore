@@ -1,0 +1,91 @@
+﻿@model OrganizationM
+<form method="post">
+    <input asp-for="Id" hidden/>
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Удалить организацию</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="OrganYprav"></label>
+            <input asp-for="OrganYprav" disabled class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="RegNumber"></label>
+            <input asp-for="RegNumber" disabled class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="SubjectRF"></label>
+            <input asp-for="SubjectRF" disabled class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="YrName"></label>
+            <input asp-for="YrName" disabled class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="ShortYrName"></label>
+            <input asp-for="ShortYrName" disabled class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="AdrYr"></label>
+            <input asp-for="AdrYr" disabled class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="FIO"></label>
+            <input asp-for="FIO" disabled class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="PhoneNumber"></label>
+            <input asp-for="PhoneNumber" disabled class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="FaksOrg"></label>
+            <input asp-for="FaksOrg" disabled class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="MailOrg"></label>
+            <input asp-for="MailOrg" disabled class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="OKPO"></label>
+            <input asp-for="OKPO" disabled class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="OKVED"></label>
+            <input asp-for="OKVED" disabled class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="OKOGY"></label>
+            <input asp-for="OKOGY" disabled class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="OKTMO"></label>
+            <input asp-for="OKTMO" disabled class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="INN"></label>
+            <input asp-for="INN" disabled class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="KPP"></label>
+            <input asp-for="KPP" disabled class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="OKOPF"></label>
+            <input asp-for="OKOPF" disabled class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="OKFS"></label>
+            <input asp-for="OKFS" disabled class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-danger" style="width:150px">Удалить организацию</button>
+        <a asp-controller="Form10" asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Вернуться к списку
+        </a>
+    </div>
+</form>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"/>
+    }
+}
