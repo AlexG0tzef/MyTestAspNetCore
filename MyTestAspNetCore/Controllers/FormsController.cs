@@ -5,11 +5,10 @@ using System.Diagnostics;
 
 namespace MyTestAspNetCore.Controllers
 {
-    public class Form10Controller : Controller
+    public class FormыController : Controller
     {
         private readonly ApplicationDbContext contextDb;
-        private OrganizationM org { get; set; }
-        public Form10Controller(ApplicationDbContext ContextDb) 
+        public FormыController(ApplicationDbContext ContextDb) 
         {
             contextDb = ContextDb;
         }
@@ -60,42 +59,6 @@ namespace MyTestAspNetCore.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(OrganizationM obj)
-        {
-            if (ModelState.IsValid)
-            {
-                contextDb.Organizations.Update(obj);
-                contextDb.SaveChanges();
-                TempData["success"] = "Организация обновлена!";
-                return RedirectToAction("Index");
-            }
-            return View(obj);
-        }
-        #endregion
-
-        #region ViewForms
-        //GET METHOD
-        public IActionResult ViewForms(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            else
-            {
-                var categoryFromDb = contextDb.Organizations.Find(id);
-                if (categoryFromDb == null) NotFound();
-                var allForms = categoryFromDb.Form;
-                if (allForms == null)
-                {
-                    return View(new List<FormsM>());
-                }
-                return View(allForms);
-            }
-        }
-        //POST METHOD
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult ViewForms(OrganizationM obj)
         {
             if (ModelState.IsValid)
             {

@@ -18,8 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Forms\" />
-    <Folder Include="Views\Form10\ViewForms\" />
+    <Folder Include="Views\Forms\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
 

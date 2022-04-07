@@ -8,6 +8,8 @@ namespace MyTestAspNetCore.Models
         [Key]
         public int Id { get; set; }
 
+        public List<FormsM> Form { get; set; }
+
         [DisplayName("Орган управления использованием атомной энергии")]
         public string OrganYprav { get; set; }
 
