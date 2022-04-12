@@ -41,6 +41,28 @@ namespace MyTestAspNetCore.Controllers
         }
         #endregion
 
+        #region CreateForms
+        //GET METHOD
+        public IActionResult CreateForms(int? id)
+        {
+            return View();
+        }
+        //POST METHOD
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateForms(OrganizationM obj)
+        {
+            if (ModelState.IsValid)
+            {
+                contextDb.Organizations.Add(obj);
+                contextDb.SaveChanges();
+                TempData["success"] = "Форма успешно добавлена!";
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+        }
+        #endregion
+
         #region Edit
         //GET METHOD
         public IActionResult Edit(int? id)
