@@ -347,9 +347,7 @@ th {
 thead,
 tbody,
 tfoot,
-tr,
-td,
-th {
+tr {
     border-color: inherit;
     border-style: solid;
     border-width: 0;

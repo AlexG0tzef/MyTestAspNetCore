@@ -22,5 +22,7 @@ namespace MyTestAspNetCore.Models
 
         [DisplayName("Номер корректировки")]
         public int CorNum { get; set; }
+
+        public int CodOper { get; set;}
     }
 }
