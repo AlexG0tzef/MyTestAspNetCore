@@ -8,6 +8,7 @@ namespace MyTestAspNetCore.Controllers
     public class Form10Controller : Controller
     {
         private readonly ApplicationDbContext contextDb;
+        private int? ID;
         private OrganizationM org { get; set; }
         public Form10Controller(ApplicationDbContext ContextDb) 
         {
@@ -45,22 +46,24 @@ namespace MyTestAspNetCore.Controllers
         //GET METHOD
         public IActionResult CreateForms(int? id)
         {
-            return View();
+            var categoryFromDb = contextDb.Organizations.Find(id);
+            if (categoryFromDb == null) NotFound();
+            return View(categoryFromDb);
         }
-        //POST METHOD
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult CreateForms(OrganizationM obj)
-        {
-            if (ModelState.IsValid)
-            {
-                contextDb.Organizations.Add(obj);
-                contextDb.SaveChanges();
-                TempData["success"] = "Форма успешно добавлена!";
-                return RedirectToAction("Index");
-            }
-            return View(obj);
-        }
+        ////POST METHOD
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult CreateForms(OrganizationM obj)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        contextDb.Organizations.Add(obj);
+        //        contextDb.SaveChanges();
+        //        TempData["success"] = "Форма успешно добавлена!";
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(obj);
+        //}
         #endregion
 
         #region Edit
@@ -104,14 +107,16 @@ namespace MyTestAspNetCore.Controllers
             }
             else
             {
+                ID = id;
                 var categoryFromDb = contextDb.Organizations.Find(id);
                 if (categoryFromDb == null) NotFound();
                 var allForms = categoryFromDb.Form;
                 if (allForms == null)
                 {
-                    return View(new List<FormsM>());
+                    categoryFromDb.Form = new List<FormsM>();
+                    return View(categoryFromDb);
                 }
-                return View(allForms);
+                return View(categoryFromDb);
             }
         }
         //POST METHOD

@@ -1,4 +1,4 @@
-﻿@*@model OrganizationM*@
+﻿@model OrganizationM
 <form method="post">
     <tr class="border p-3 mt-4">
         <div class="row pb-2">
@@ -81,7 +81,7 @@
             </tr>
         <tbody>
         </table>
-        <a asp-controller="Form10" asp-action="ViewForms"  asp-route-id="" class="btn btn-secondary" style="width:150px">
+        <a asp-controller="Form10" asp-action="ViewForms"  asp-route-id="@Model.Id" class="btn btn-secondary" style="width:150px">
             Вернуться к списку форм
         </a>
     </div>
