@@ -8,7 +8,6 @@ namespace MyTestAspNetCore.Controllers
     public class Form10Controller : Controller
     {
         private readonly ApplicationDbContext contextDb;
-        private int? ID { get; set; }
         public Form10Controller(ApplicationDbContext ContextDb)
         {
             contextDb = ContextDb;
@@ -28,15 +27,12 @@ namespace MyTestAspNetCore.Controllers
         //POST METHOD
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(FormsNumberM obj)
+        public IActionResult Create(OrganizationM obj)
         {
-            var categoryFromDb = contextDb.Organizations.Find(ID);
-            if (categoryFromDb == null) NotFound();
-            categoryFromDb.Form.Add(obj);
-            contextDb.Organizations.Update(categoryFromDb);
+            contextDb.Organizations.Add(obj);
             contextDb.SaveChanges();
-            TempData["success"] = "Форма успешно добавлена!";
-            return RedirectToAction("Form10/ViewForms");
+            TempData["success"] = "Организация успешно добавлена!";
+            return RedirectToAction("Index");
         }
         #endregion
 
@@ -84,14 +80,18 @@ namespace MyTestAspNetCore.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(OrganizationM obj)
         {
-            if (ModelState.IsValid)
-            {
-                contextDb.Organizations.Update(obj);
-                contextDb.SaveChanges();
-                TempData["success"] = "Организация обновлена!";
-                return RedirectToAction("Index");
-            }
-            return View(obj);
+            //if (ModelState.IsValid)
+            //{
+            //    contextDb.Organizations.Update(obj);
+            //    contextDb.SaveChanges();
+            //    TempData["success"] = "Организация обновлена!";
+            //    return RedirectToAction("Index");
+            //}
+            //return View(obj);
+            contextDb.Organizations.Update(obj);
+            contextDb.SaveChanges();
+            TempData["success"] = "Организация обновлена!";
+            return RedirectToAction("Index");
         }
         #endregion
 

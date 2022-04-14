@@ -1,4 +1,4 @@
-﻿@model FormsM
+﻿@model OrganizationM
 <script type="text/javascript">
 	function addRow(id){
 		var tbody = document.getElementById(id).getElementsByTagName("tbody")[0];
@@ -156,7 +156,10 @@
 		<p>
 			<a href="javascript://" onclick="addRow('myTable');return false;">Добавить строку</a>
 		</p>
-        <table id="myTable" class="table table-bordered" style="border: 3px;">
+		<a asp-controller="AllForms" asp-action="CreateF" asp-route-obj="@Model" asp-route-formN = "1.1" asp-route-ID="@Model.Id" class="btn btn-secondary" style="width:150px">
+            Добавить строку
+        </a>
+        <table id="myTable" class="table1">
 			<thead>
 				<tr>
 					<td></td>

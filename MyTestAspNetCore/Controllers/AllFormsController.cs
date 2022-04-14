@@ -13,160 +13,56 @@ namespace MyTestAspNetCore.Controllers
         {
             contextDb = ContextDb;
         }
-        public IActionResult Index()
-        {
-            List<OrganizationM> objOrgList = contextDb.Organizations.ToList();
-            return View(objOrgList);
-        }
 
         #region Create
         //GET METHOD
         public IActionResult Create(int? id)
         {
-            return View();
-        }
-        //POST METHOD
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(List<FormsM> obj)
-        {
-            var categoryFromDb = contextDb.Organizations.Find(obj[0].Id);
-            if (categoryFromDb == null) NotFound();
-            FormsNumberM newForm = new();
-            foreach (FormsM o in obj) 
-            {
-                newForm.Form.Add(o);
-            }
-            categoryFromDb.Form.Add(newForm);
-            contextDb.Organizations.Update(categoryFromDb);
-            contextDb.SaveChanges();
-            TempData["success"] = "Форма успешно добавлена!";
-            return RedirectToAction("Form10/ViewForms");
-        }
-        #endregion
-
-        #region CreateForms
-        //GET METHOD
-        public IActionResult CreateForms(int? id)
-        {
             var categoryFromDb = contextDb.Organizations.Find(id);
-            if (categoryFromDb == null) NotFound();
+            //if (newF) 
+            //{
+            //    if (categoryFromDb.Form == null)
+            //    {
+            //        categoryFromDb.Form = new List<FormsNumberM>();
+            //    }
+            //    categoryFromDb.Form.Add(new FormsNumberM());
+            //    contextDb.Organizations.Update(categoryFromDb);
+            //    contextDb.SaveChanges();
+            //}
             return View(categoryFromDb);
         }
-        ////POST METHOD
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult CreateForms(OrganizationM obj)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        contextDb.Organizations.Add(obj);
-        //        contextDb.SaveChanges();
-        //        TempData["success"] = "Форма успешно добавлена!";
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(obj);
-        //}
-        #endregion
-
-        #region Edit
-        //GET METHOD
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            else
-            {
-                var categoryFromDb = contextDb.Organizations.Find(id);
-                if (categoryFromDb == null) NotFound();
-                return View(categoryFromDb);
-            }
-        }
         //POST METHOD
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(OrganizationM obj)
+        public IActionResult Create(OrganizationM obj)
         {
-            if (ModelState.IsValid)
-            {
-                contextDb.Organizations.Update(obj);
-                contextDb.SaveChanges();
-                TempData["success"] = "Организация обновлена!";
-                return RedirectToAction("Index");
-            }
-            return View(obj);
+            //var categoryFromDb = contextDb.Organizations.Find(obj[0].Id);
+            //if (categoryFromDb == null) NotFound();
+            //FormsNumberM newForm = new();
+            //foreach (FormsM o in obj) 
+            //{
+            //    newForm.Form.Add(o);
+            //}
+            //categoryFromDb.Form.Add(newForm);
+            //contextDb.Organizations.Update(categoryFromDb);
+            //contextDb.SaveChanges();
+            //TempData["success"] = "Форма успешно добавлена!";
+            //return RedirectToAction();
+            return RedirectToAction("ViewForms");
         }
         #endregion
-
-        #region ViewForms
-        //GET METHOD
-        public IActionResult ViewForms(int? id)
+        public IActionResult CreateF(OrganizationM? obj, string formN, int? ID)
         {
-            if (id == null || id == 0)
+            var categoryFromDb = contextDb.Organizations.Find(ID);
+            if (categoryFromDb.Form == null)
             {
-                return NotFound();
+                categoryFromDb.Form = new List<FormsNumberM>();
             }
-            else
-            {
-                var categoryFromDb = contextDb.Organizations.Find(id);
-                if (categoryFromDb == null) NotFound();
-                var allForms = categoryFromDb.Form;
-                if (allForms == null)
-                {
-                    categoryFromDb.Form = new List<FormsNumberM>();
-                    return View(categoryFromDb);
-                }
-                return View(categoryFromDb);
-            }
-        }
-        //POST METHOD
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult ViewForms(OrganizationM obj)
-        {
-            if (ModelState.IsValid)
-            {
-                contextDb.Organizations.Update(obj);
-                contextDb.SaveChanges();
-                TempData["success"] = "Организация обновлена!";
-                return RedirectToAction("Index");
-            }
-            return View(obj);
-        }
-        #endregion
-
-        #region Delete
-        //GET METHOD
-        public IActionResult Delete(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            else
-            {
-                var categoryFromDb = contextDb.Organizations.Find(id);
-                if (categoryFromDb == null) NotFound();
-                return View(categoryFromDb);
-            }
-        }
-        //POST METHOD
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeletePost(int? id)
-        {
-            var obj = contextDb.Organizations.Find(id);
-            if (obj == null)
-            {
-                return NotFound();
-            }
-            contextDb.Organizations.Remove(obj);
+            categoryFromDb.Form.Add(new FormsNumberM());
+            contextDb.Organizations.Update(categoryFromDb);
             contextDb.SaveChanges();
-            TempData["success"] = "Организация успешно удалена!";
-            return RedirectToAction("Index");
+            return RedirectToActionPreserveMethod("Create", "AllForms", categoryFromDb);
+            //return RedirectToAction("Create");
         }
-        #endregion
     }
 }

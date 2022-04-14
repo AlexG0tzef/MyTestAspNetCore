@@ -2144,6 +2144,11 @@ progress {
     border-color: #282828;
 }
 
+table1 {
+    width: 100%; /* Ширина таблицы */
+    border: 4px double black; /* Рамка вокруг таблицы */
+    border-collapse: collapse; /* Отображать только одинарные линии */
+}
     .table > :not(caption) > * > * {
         padding: 0.5rem 0.5rem;
         background-color: var(--bs-table-bg);
