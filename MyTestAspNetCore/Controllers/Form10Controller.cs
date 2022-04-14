@@ -5,48 +5,63 @@ using System.Diagnostics;
 
 namespace MyTestAspNetCore.Controllers
 {
-    public class AllFormsController : Controller
+    public class Form10Controller : Controller
     {
         private readonly ApplicationDbContext contextDb;
-        private string formNum;
-        private OrganizationM org { get; set; }
-        private FormsM form { get; set; }
-        public AllFormsController(ApplicationDbContext ContextDb) 
+        private int? ID { get; set; }
+        public Form10Controller(ApplicationDbContext ContextDb)
         {
             contextDb = ContextDb;
         }
-        //public IActionResult Index()
-        //{
-        //    List<OrganizationM> objOrgList = contextDb.Organizations.ToList();
-        //    return View(objOrgList);
-        //}
+        public IActionResult Index()
+        {
+            List<OrganizationM> objOrgList = contextDb.Organizations.ToList();
+            return View(objOrgList);
+        }
 
         #region Create
         //GET METHOD
-        public IActionResult Create(string FormNum)
+        public IActionResult Create()
         {
-            formNum = FormNum;
             return View();
         }
         //POST METHOD
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(OrganizationM obj)
+        public IActionResult Create(FormsNumberM obj)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    contextDb.Organizations.Add(obj);
-            //    contextDb.SaveChanges();
-            //    TempData["success"] = "Организация успешно добавлена!";
-            //    return RedirectToAction("Index");
-            //}
-            //return View(obj);
-
-            contextDb.Organizations.Add(obj);
+            var categoryFromDb = contextDb.Organizations.Find(ID);
+            if (categoryFromDb == null) NotFound();
+            categoryFromDb.Form.Add(obj);
+            contextDb.Organizations.Update(categoryFromDb);
             contextDb.SaveChanges();
-            TempData["success"] = "Организация успешно добавлена!";
-            return RedirectToAction("Index");
+            TempData["success"] = "Форма успешно добавлена!";
+            return RedirectToAction("Form10/ViewForms");
         }
+        #endregion
+
+        #region CreateForms
+        //GET METHOD
+        public IActionResult CreateForms(int? id)
+        {
+            var categoryFromDb = contextDb.Organizations.Find(id);
+            if (categoryFromDb == null) NotFound();
+            return View(categoryFromDb);
+        }
+        ////POST METHOD
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult CreateForms(OrganizationM obj)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        contextDb.Organizations.Add(obj);
+        //        contextDb.SaveChanges();
+        //        TempData["success"] = "Форма успешно добавлена!";
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(obj);
+        //}
         #endregion
 
         #region Edit
@@ -68,6 +83,43 @@ namespace MyTestAspNetCore.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(OrganizationM obj)
+        {
+            if (ModelState.IsValid)
+            {
+                contextDb.Organizations.Update(obj);
+                contextDb.SaveChanges();
+                TempData["success"] = "Организация обновлена!";
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+        }
+        #endregion
+
+        #region ViewForms
+        //GET METHOD
+        public IActionResult ViewForms(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var categoryFromDb = contextDb.Organizations.Find(id);
+                if (categoryFromDb == null) NotFound();
+                var allForms = categoryFromDb.Form;
+                if (allForms == null)
+                {
+                    categoryFromDb.Form = new List<FormsNumberM>();
+                    return View(categoryFromDb);
+                }
+                return View(categoryFromDb);
+            }
+        }
+        //POST METHOD
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ViewForms(OrganizationM obj)
         {
             if (ModelState.IsValid)
             {

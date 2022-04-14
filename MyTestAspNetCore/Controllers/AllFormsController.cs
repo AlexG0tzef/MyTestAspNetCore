@@ -5,12 +5,11 @@ using System.Diagnostics;
 
 namespace MyTestAspNetCore.Controllers
 {
-    public class Form10Controller : Controller
+    public class AllFormsController : Controller
     {
         private readonly ApplicationDbContext contextDb;
-        private int? ID;
-        private OrganizationM org { get; set; }
-        public Form10Controller(ApplicationDbContext ContextDb) 
+
+        public AllFormsController(ApplicationDbContext ContextDb) 
         {
             contextDb = ContextDb;
         }
@@ -22,25 +21,24 @@ namespace MyTestAspNetCore.Controllers
 
         #region Create
         //GET METHOD
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
             return View();
         }
         //POST METHOD
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(OrganizationM obj)
+        public IActionResult Create(List<FormsM> obj)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    contextDb.Organizations.Add(obj);
-            //    contextDb.SaveChanges();
-            //    TempData["success"] = "Организация успешно добавлена!";
-            //    return RedirectToAction("Index");
-            //}
-            //return View(obj);
-
-            contextDb.Organizations.Update(obj);
+            var categoryFromDb = contextDb.Organizations.Find(obj[0].Id);
+            if (categoryFromDb == null) NotFound();
+            FormsNumberM newForm = new();
+            foreach (FormsM o in obj) 
+            {
+                newForm.Form.Add(o);
+            }
+            categoryFromDb.Form.Add(newForm);
+            contextDb.Organizations.Update(categoryFromDb);
             contextDb.SaveChanges();
             TempData["success"] = "Форма успешно добавлена!";
             return RedirectToAction("Form10/ViewForms");
@@ -112,13 +110,12 @@ namespace MyTestAspNetCore.Controllers
             }
             else
             {
-                ID = id;
                 var categoryFromDb = contextDb.Organizations.Find(id);
                 if (categoryFromDb == null) NotFound();
                 var allForms = categoryFromDb.Form;
                 if (allForms == null)
                 {
-                    categoryFromDb.Form = new List<FormsM>();
+                    categoryFromDb.Form = new List<FormsNumberM>();
                     return View(categoryFromDb);
                 }
                 return View(categoryFromDb);
